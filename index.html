@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>A form, with javascript.</title>
+        <style>
+            body{
+                background: #d4fffb;
+            }
+            table{
+                border:dashed 4px rgb(247, 0, 255);
+                text-align: center;
+            }
+            tr{
+                border:double 4px rgb(145, 255, 240);
+                padding: 50px;
+                text-align: center;
+                font-size: 30px;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                color: darkmagenta;
+            }
+            td{
+                border:inset 4px rgb(255, 0, 179)
+            }
+            h1{
+                font-size: 50px;
+            }
+            .error{
+                font-size: 35px;
+                font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                color: red;
+                background-color: rgb(255, 231, 231);
+
+            }
+        </style>
+        <script>
+            function validate(){
+                //Validation for full name.
+                var realname = document.form.name.value
+                if(realname==""){
+                    document.getElementById("fv1").innerHTML="Please enter your full name!";
+                    document.form.name.focus();
+                    return false;
+
+                }
+                else{
+                    document.getElementById("fv1").innerHTML="";
+                }
+                //Validation for E-Mail.
+                var Email = document.form.email.value;
+                var atpos = Email.indexOf("@");
+                var dotpos = Email.lastIndexOf(".");
+                if(Email==""){
+                    document.getElementById("fv2").innerHTML="Please enter a email address.";
+                    document.form.email.focus();
+                    return false;
+                }
+                else if(atpos<1 || (dotpos-atpos<2)){
+                    document.getElementById("fv2").innerHTML="Please enter a valid email.";
+                    document.form.email.focus();
+                    return false;
+                }
+                else{
+                    document.getElementById("fv2").innerHTML="";
+                }
+                //Validation for Mobile Number.
+
+                var mobilen = document.form.mnumber.value;
+                if(mobilen==""){
+                    document.getElementById("fv3").innerHTML="Please enter your Mobile Number."
+                    document.form.mnumber.focus();
+                    return false;
+                }
+                else if(mobilen.length!=10 || isNaN(mobilen)){
+                    document.getElementById("fv3").innerHTML="Please enter a valid Mobile Number."
+                    document.form.mnumber.focus();
+                    return false;
+                }
+                else{
+                    document.getElementById("fv3").innerHTML=""; 
+                }
+                //Validation for DOB.
+                var dob = document.form.date.value
+                if(dob=="" || dob=="mm/dd/yyyy"){
+                    document.getElementById("fv4").innerHTML="Please give your date of birth.";
+                    document.form.date.focus();
+                    return false;
+                }
+                else{
+                    document.getElementById("fv4").innerHTML="";
+                }
+                
+                //Validation for UserName.
+                var uname = document.form.username.value
+                if(uname==""){
+                    document.getElementById("fv5").innerHTML="Please enter an username!";
+                    document.form.username.focus();
+                    return false;
+
+                }
+                else{
+                    document.getElementById("fv5").innerHTML="";
+                }
+                //Validation for Password.
+                var enter = document.form.pass.value;
+                var cstrong = document.form.cpass.value;
+                if(enter==""||enter.length<=6){
+                    document.getElementById("fv6").innerHTML="Please enter more than 6 characters for a strong password.";
+                    document.form.pass.focus();
+                    return false;
+                }
+                else{
+                    document.getElementById("fv6").innerHTML=""
+                }
+                //Confirm the Password.
+                if(cstrong=""||enter!=cstrong){
+                    document.getElementById("fv7").innerHTML="Confirm Password and the Password you entered should be the Same."
+                    document.form.cpass.focus();
+                    return false;
+
+                }
+                else{
+                    document.getElementById("fv7").innerHTML=""
+                }
+                //Validation for Gender.
+                var gend = document.getElementsByName("gender");
+                if(gend[0].checked==true){
+                    document.getElementById("fv8").innerHTML="";
+                }
+                else if(gend[1].checked==true){
+                    document.getElementById("fv8").innerHTML="";
+                }
+                else{
+                    document.getElementById("fv8").innerHTML="Please enter your gender";
+                    return false;
+                }
+                return true;
+            }   
+        </script>
+    </head>
+    <body>
+        <center>
+            <h1>Registration</h1>
+            <form name="form" onsubmit="return(validate());"> 
+                <table>
+                    <tr>
+                        <td>Full Name:</td>
+                        <td><input type="text" name="name" size="40"></td>
+                        <td id="fv1" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>E-Mail:</td>
+                        <td><input type="text" name="email" size="40"></td>
+                        <td id="fv2" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Mobile Number:</td>
+                        <td><input type="text" name="mnumber" size="40"></td>
+                        <td id="fv3" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>DOB(Date of Birth):</td>
+                        <td><input type="date" name="date" size="40"></td>
+                        <td id="fv4" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" name="username" size="40"></td>
+                        <td id="fv5" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="pass" size="40"></td>
+                        <td id="fv6" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Confirm Password:</td>
+                        <td><input type="password" name="cpass" size="40"></td>
+                        <td id="fv7" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>Male<input type="radio" name="gender" size="40">Female <input type="radio" name="gender" size="40"></td>
+                        <td id="fv8" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Pincode:</td>
+                        <td><input type="text" name="pin" size="40"></td>
+                        <td id="fv9" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>Country</td>
+                        <td><select name="country"><option value=""></option>
+                        <option value="0" selected>Select Your Country</option>
+                        <option value="1">UAE</option>
+                        <option value="2">Australia</option>
+                        <option value="3">India</option>
+                        <option value="4">USA</option>
+                        <option value="5">UK</option>
+                        <option value="6">IceLand</option>
+                        <option value="7">France</option>
+                        <option value="8">Singapore</option>
+                        <option value="9">Spain</option>
+                        <option value="10">Algeria</option>
+                        </select>
+                        </td>
+                        <td id="fv9" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" name="submit" value="submit"></td>
+                        <td><input type="reset" name="reset" value="reset"></td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </body>
+</html>
